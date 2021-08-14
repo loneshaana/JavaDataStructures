@@ -3,33 +3,43 @@ package DataStructures;
 public class LinkedListDemo {
     public static void main(String[] args) throws Exception {
         // List arr = new ArrayList<>();
-        LinkedList list = new LinkedList();
+        LinkedList<String> list = new LinkedList<>();
         // System.out.println("First Is my List Empty "+list.isEmpty());
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(100);
-        list.add(400);
-        list.add(-1);
-        // System.out.println("Last Is my List Empty " + list.isEmpty());
-        // System.out.println("Size of list is " + list.size());
-        // System.out.println("List contains value 600 "+ list.contains(600));
-        // System.out.println("Value at index 4 is "+list.get(4));
+        // list.add(1);
+        // list.add(2);
+        // list.add(3);
+        // list.add(100);
+        // list.add(400);
+        // list.add(-1);
+        // // System.out.println("Last Is my List Empty " + list.isEmpty());
+        // // System.out.println("Size of list is " + list.size());
+        // // System.out.println("List contains value 600 "+ list.contains(600));
+        // // System.out.println("Value at index 4 is "+list.get(4));
+        // list.traverse();
+        // // list.remove(0);
+        // list.add(2,600);
+        // list.traverse();
+
+        list.add("anwar");
+        list.add("ball");
+        list.add("catch");
+        list.add("dgod");
+        list.add(0,"z");
+        System.out.println("list contians d "+list.contains("d"));
         list.traverse();
-        // list.remove(0);
-        list.add(2,600);
+        list.remove(0);
         list.traverse();
     }
 }
 
-class LinkedList {
-    private Node root = null; // object value
-    private Node tail = null;
+class LinkedList<P> {
+    private Node<P> root = null; // object value
+    private Node<P> tail = null;
     private int size = 0;
 
     void traverse() {
         // print each element in linkedList
-        Node temp = root;
+        Node<P> temp = root;
         while (temp != null) {
             System.out.print(temp.value + " ");
             temp = temp.next;
@@ -57,8 +67,8 @@ class LinkedList {
      */
     void remove(int idx) {
         int index = 0;
-        Node temp = root;
-        Node previous = root;
+        Node<P> temp = root;
+        Node<P> previous = root;
         while (temp != null) {
             /**
              * idx = last index
@@ -67,7 +77,7 @@ class LinkedList {
             if (index == idx) {
                 if (index == 0) {
                     // remove root
-                    Node newRoot = root.next;
+                    Node<P> newRoot = root.next;
                     root.next = null;
                     root = newRoot;
                 } else {
@@ -86,8 +96,8 @@ class LinkedList {
         }
     }
 
-    void add(int value) {
-        Node toAdd = new Node(value); // create node
+    void add(P value) {
+        Node<P> toAdd = new Node<P>(value); // create node
         if (root == null) {
             tail = toAdd;
             root = toAdd; // first time
@@ -98,25 +108,25 @@ class LinkedList {
         size += 1;
     }
 
-    void add(int index , int value){
-        Node nodeToAdd = new Node(value);
+    void add(int index , P value){
+        Node<P> nodeToAdd = new Node<P>(value);
         if(index >= size){
             add(value);
             return;
         }
         if(index == 0){
-            Node previousRoot = root;
+            Node<P> previousRoot = root;
             root = nodeToAdd;
             root.next = previousRoot;
             return;
         }
         int idx = 0;
-        Node temp = root;
-        Node previous = root;
+        Node<P> temp = root;
+        Node<P> previous = root;
         while(temp != null){
             if(idx == index){
                 // add node here
-                Node afterNode = previous.next;
+                Node<P> afterNode = previous.next;
                 previous.next = nodeToAdd;
                 nodeToAdd.next = afterNode;
                 return;
@@ -127,8 +137,8 @@ class LinkedList {
         }
     }
 
-    boolean contains(int value) {
-        Node temp = root;
+    boolean contains(P value) {
+        Node<P> temp = root;
         while (temp != null) {
             if (temp.value == value)
                 return true;
@@ -140,12 +150,12 @@ class LinkedList {
     /*
      * Return tthe value of the node present at that index
      */
-    int get(int index) throws Exception {
+    P get(int index) throws Exception {
         // check
         if (index >= size) {
             throw new IndexOutOfBoundsException(index + " is out of bounds");
         }
-        Node temp = root;
+        Node<P> temp = root;
         int idx = 0;
         while (temp != null) {
             if (idx == index) {
@@ -154,21 +164,21 @@ class LinkedList {
             temp = temp.next;
             idx += 1;
         }
-        return -1;
+        return null;
     }
 }
 
-class Node {
-    int value;
-    Node next;// somewhere i have to keep null
+class Node<T> {
+    T value;
+    Node<T> next;// somewhere i have to keep null
 
     // constructore with 1 parameter
-    public Node(int value) {
+    public Node(T value) {
         this.value = value;
     }
 
     // constructore with 2 parameter , constructor overloading
-    public Node(int value, Node next) {
+    public Node(T value, Node<T> next) {
         this.value = value;
         this.next = next;
     }
