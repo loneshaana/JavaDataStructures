@@ -37,6 +37,10 @@ class LinkedList<P> {
     private Node<P> tail = null;
     private int size = 0;
 
+    public P getTailElement(){
+        if(tail == null) return null;
+        return tail.value;
+    }
     void traverse() {
         // print each element in linkedList
         Node<P> temp = root;
@@ -63,9 +67,35 @@ class LinkedList<P> {
     }
 
     /*
+        removes always from  tail
+    */
+    P  remove(){
+        // remove tail;
+        if(tail == null) return null;
+        Node<P> nodeToremove = tail;
+        Node<P> temp = root;
+        Node<P> previous = null;
+
+        while(temp != null){
+            if(temp  == tail){
+                if(previous == null){
+                    tail = null;
+                    root = null;
+                    return null;
+                }
+                previous.next = null;
+                tail = previous;
+                break;
+            }
+            previous = temp;
+            temp = temp.next;
+        }
+        return nodeToremove.value;
+    }
+    /*
      * Remove Node at index
      */
-    void remove(int idx) {
+    P remove(int idx) {
         int index = 0;
         Node<P> temp = root;
         Node<P> previous = root;
@@ -81,6 +111,7 @@ class LinkedList<P> {
                     root.next = null;
                     root = newRoot;
                     size -= 1;
+                    return root.value;
                 } else {
                     // update reference / link
                     previous.next = temp.next;
@@ -89,13 +120,14 @@ class LinkedList<P> {
                         tail = previous;
                     }
                     size -= 1;
+                    return temp.value;
                 }
-                return;
             }
             previous = temp;
             temp = temp.next;
             index += 1;
         }
+        return null;
     }
 
     void add(P value) {
