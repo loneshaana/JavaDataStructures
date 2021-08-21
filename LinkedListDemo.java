@@ -80,6 +80,7 @@ class LinkedList<P> {
                     Node<P> newRoot = root.next;
                     root.next = null;
                     root = newRoot;
+                    size -= 1;
                 } else {
                     // update reference / link
                     previous.next = temp.next;
@@ -87,6 +88,7 @@ class LinkedList<P> {
                         // is last element
                         tail = previous;
                     }
+                    size -= 1;
                 }
                 return;
             }
@@ -129,6 +131,7 @@ class LinkedList<P> {
                 Node<P> afterNode = previous.next;
                 previous.next = nodeToAdd;
                 nodeToAdd.next = afterNode;
+                size += 1;
                 return;
             }
             idx += 1;
